@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contabilidad Administrativa - Proyecto Académico UMG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        umg: {
+                            navy: '#002B49',
+                            royal: '#1B365D',
+                            gold: '#C59B27',
+                            goldHover: '#B0881E',
+                            accent: '#D4AF37',
+                            bgLight: '#F4F6F8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F4F6F8;
+            color: #1E293B;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .bg-umg-gradient {
+            background: linear-gradient(135deg, #002B49 0%, #1B365D 100%);
+        }
+        .bg-gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #C59B27 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-umg-gold selection:text-white">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-umg-navy text-white shadow-xl border-b-2 border-umg-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-gold-gradient flex items-center justify-center text-umg-navy font-bold text-2xl shadow-lg border-2 border-white">
+                        <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Escudo_de_la_universidad_Mariano_G%C3%A1lvez_Guatemala.svg/960px-Escudo_de_la_universidad_Mariano_G%C3%A1lvez_Guatemala.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="UMG Logo" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-wider font-heading block leading-none text-white">UMG</span>
+                        <span class="text-xs text-umg-gold font-medium tracking-widest uppercase">Contabilidad Administrativa</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-6 text-sm font-semibold">
+                    <a href="#hero" class="px-3 py-2 rounded-lg hover:text-umg-gold transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-house text-xs text-umg-gold"></i> Inicio
+                    </a>
+                    <a href="#teoria" class="px-3 py-2 rounded-lg hover:text-umg-gold transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-book-bookmark text-xs text-umg-gold"></i> Fundamentos Teóricos
+                    </a>
+                    <a href="#herramientas" class="px-3 py-2 rounded-lg hover:text-umg-gold transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-toolbox text-xs text-umg-gold"></i> Herramientas de Gestión
+                    </a>
+                    <a href="#simuladores" class="px-3 py-2 rounded-lg hover:text-umg-gold transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-xs text-umg-gold"></i> Simuladores
+                    </a>
+                    <a href="#galeria" class="px-3 py-2 rounded-lg hover:text-umg-gold transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-images text-xs text-umg-gold"></i> Galería de Actividades
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-gray-300 hover:text-white hover:bg-umg-royal focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-umg-royal border-t border-slate-700 px-4 pt-2 pb-4 space-y-2">
+            <a href="#hero" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-umg-navy hover:text-umg-gold">Inicio</a>
+            <a href="#teoria" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-umg-navy hover:text-umg-gold">Fundamentos Teóricos</a>
+            <a href="#herramientas" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-umg-navy hover:text-umg-gold">Herramientas de Gestión</a>
+            <a href="#simuladores" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-umg-navy hover:text-umg-gold">Simuladores</a>
+            <a href="#galeria" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-umg-navy hover:text-umg-gold">Galería de Actividades</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+     <section id="hero" class="bg-umg-gradient text-white py-16 lg:py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl space-y-6">
+                <h1 class="text-3xl sm:text-5xl font-extrabold font-heading tracking-tight leading-tight">
+                    Portal Digital de <span class="text-umg-gold underline decoration-umg-gold/50">Contabilidad Administrativa</span>
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg font-light">
+                    Plataforma interactiva de educación que combina teorías básicas y simuladores financieros cuantitativos para mejorar la toma de decisiones gerenciales.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-4">
+                    <a href="#simuladores" class="bg-gold-gradient text-umg-navy hover:opacity-95 px-6 py-3.5 rounded-xl font-bold shadow-lg shadow-umg-gold/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-sliders"></i> Probar Simuladores
+                    </a>
+                    <a href="#teoria" class="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-semibold border border-white/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Explorar Teoría
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- SECTION 1: CONTABILIDAD ADMINISTRATIVA (TEORÍA) -->
+        <section id="teoria" class="scroll-mt-28 space-y-8">
+            <div class="border-l-4 border-umg-gold pl-4">
+                <span class="text-sm font-bold text-umg-gold uppercase tracking-wider">Módulo I</span>
+                <h2 class="text-3xl font-extrabold text-umg-navy font-heading">Contabilidad Administrativa: Aspectos Teóricos</h2>
+                <p class="text-slate-600 mt-1">Marco conceptual, metas estratégicas y distinción con otros campos de la contabilidad.</p>
+            </div>
+
+            <!-- Conceptual Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="text-umg-gold text-2xl font-bold"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 class="font-bold text-lg text-umg-navy">Definición</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        La contabilidad administrativa (también conocida como contabilidad gerencial) es un sistema de información enfocado en el análisis, interpretación y presentación de datos financieros y operativos para el uso interno de los directivos y gerentes de una organización. </p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="text-umg-gold text-2xl font-bold"><i class="fa-solid fa-list-check"></i></div>
+                    <h3 class="font-bold text-lg text-umg-navy">Objetivos Clave</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        A diferencia de la contabilidad financiera (que está orientada a reportar información a reguladores, bancos y accionistas externos), la contabilidad administrativa no está sujeta a normativas fiscales rígidas. Su propósito principal es servir como una herramienta flexible y estratégica para la toma de decisiones dentro de la empresa. Asi como Proveer información detallada para diseñar planes a corto, mediano y largo plazo, monitorear el desempeño real de la empresa frente a los objetivos y presupuestos establecidos y ayudar a maximizar la eficiencia en el uso de todos los recursos. </p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="text-umg-gold text-2xl font-bold"><i class="fa-solid fa-chess"></i></div>
+                    <h3 class="font-bold text-lg text-umg-navy">Importancia Gerencial</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+La contabilidad administrativa es esencial, ya que funciona como el sistema nervioso de la gestión de empresas. Facilita la transición de una simple intuición a decisiones fundamentadas en datos específicos.
+<br>
+Las compañías que tienen control sobre su información interna son capaces de reaccionar con mayor rapidez en un ambiente competitivo y cambiante, rectificar fallos operativos antes de que impacten la rentabilidad y establecer una vía definida hacia el crecimiento sostenible.</p>
+                </div>
+            </div>
+
+            <!-- Comparative Table / Tabs -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+                <div class="bg-umg-navy p-6 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold font-heading text-white">Cuadro Comparativo entre Contabilidades</h3>
+                        <p class="text-xs text-slate-300">Diferenciación conceptual, normativa, enfoque y temporalidad.</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 text-umg-navy font-bold border-b border-slate-200">
+                                <th class="p-4">Criterio</th>
+                                <th class="p-4 bg-blue-50/50 text-umg-navy">Contabilidad Administrativa</th>
+                                <th class="p-4">Contabilidad Financiera</th>
+                                <th class="p-4">Contabilidad de Costos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-slate-900 bg-slate-50">Usuarios Principales</td>
+                                <td class="p-4 bg-blue-50/30 font-medium text-umg-navy">Internos (Gerentes, Directores, Ejecutivos)</td>
+                                <td class="p-4">Externos (Bancos, Inversionistas, SAT, Accionistas)</td>
+                                <td class="p-4">Internos y Operativos (Jefes de Planta, Producción)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-slate-900 bg-slate-50">Enfoque Temporal</td>
+                                <td class="p-4 bg-blue-50/30 font-medium text-umg-navy">Futuro (Presupuestos, Proyecciones)</td>
+                                <td class="p-4">Histórico (Hechos pasados ya ocurridos)</td>
+                                <td class="p-4">Presente y Corto Plazo (Costo de producción actual)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-slate-900 bg-slate-50">Normativa Reguladora</td>
+                                <td class="p-4 bg-blue-50/30 font-medium text-umg-navy">No obligatoria / Formato libre adaptado a la empresa</td>
+                                <td class="p-4">Regulada por NIIF / NIC de carácter obligatorio</td>
+                                <td class="p-4">Técnica de acumulación interna (Procesos o Órdenes)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-semibold text-slate-900 bg-slate-50">Propósito Central</td>
+                                <td class="p-4 bg-blue-50/30 font-medium text-umg-navy">Facilitar la toma de decisiones y el control interno</td>
+                                <td class="p-4">Rendir cuentas sobre la situación financiera general</td>
+                                <td class="p-4">Valuar inventarios y determinar costo de lo vendido</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TEORÍA DE HERRAMIENTAS DE GESTIÓN PRÁCTICA -->
+        <section id="herramientas" class="scroll-mt-28 space-y-8">
+            <div class="border-l-4 border-umg-gold pl-4">
+                <span class="text-sm font-bold text-umg-gold uppercase tracking-wider">Módulo II</span>
+                <h2 class="text-3xl font-extrabold text-umg-navy font-heading">Herramientas de Gestión Práctica</h2>
+                <p class="text-slate-600 mt-1">Las herramientas de la contabilidad administrativa son los instrumentos operativos que permiten a los directivos traducir los objetivos estratégicos en acciones diarias y medibles. Entre las más destacadas se encuentran:</div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Herramienta 1 -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-t-4 border-umg-navy">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy/10 text-umg-navy flex items-center justify-center font-bold text-lg mb-3">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-umg-navy mb-2">Medición de Rentabilidad y Eficiencia</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                       Para saber si una empresa está utilizando sus recursos de forma óptima, la contabilidad administrativa evalúa dos dimensiones fundamentales:
+<br><br>
+Rentabilidad: Mide la capacidad de generar utilidades en relación con las ventas, los activos o el capital invertido. Los indicadores más comunes son el Margen de Utilidad Neta, el ROA (Rentabilidad sobre los Activos) y el ROE (Rentabilidad sobre el Patrimonio).
+<br><br>
+Eficiencia: Evalúa la velocidad y destreza con la que se gestionan los recursos operativos. Destacan la Rotación de Inventarios (qué tan rápido se vende la mercancía) y la Rotación de Cuentas por Cobrar (qué tan eficientemente se recupera el crédito otorgado).</p>
+                </div>
+
+                <!-- Herramienta 2 -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-t-4 border-umg-gold">
+                    <div class="w-10 h-10 rounded-lg bg-umg-gold/10 text-umg-gold flex items-center justify-center font-bold text-lg mb-3">
+                        <i class="fa-solid fa-money-bill-transfer"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-umg-navy mb-2">Análisis de Flujo de Efectivo</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                     El efectivo es el oxígeno de cualquier organización. Mientras que el estado de resultados muestra las ganancias contables, el análisis de flujo de efectivo detalla la entrada y salida real de dinero físico o disponible. Su importancia radica en:
+<br>
+Garantizar la liquidez a corto plazo para cumplir con obligaciones inmediatas (sueldos, proveedores, impuestos).
+<br>
+Identificar desajustes temporales entre las ventas registradas y el dinero cobrado.
+<br>
+Planificar inversiones futuras sin poner en riesgo la estabilidad operativa de la empresa.</p>
+                </div>
+
+                <!-- Herramienta 3 -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-t-4 border-umg-navy">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy/10 text-umg-navy flex items-center justify-center font-bold text-lg mb-3">
+                        <i class="fa-solid fa-code-compare"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-umg-navy mb-2">Decisiones de Comprar o Producir</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                       Una de las decisiones tácticas más frecuentes en la gestión empresarial es evaluar si conviene fabricar un componente (o brindar un servicio) internamente o contratar a un proveedor externo.
+<br><br>
+El análisis compara los costos incrementales de producción frente al precio del proveedor externo.
+<br><br>
+También toma en cuenta factores cualitativos, como la calidad del insumo, la dependencia de terceros y la capacidad o capacidad ociosa de la planta propia.</p>
+                </div>
+
+                <!-- Herramienta 4 -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-t-4 border-umg-gold">
+                    <div class="w-10 h-10 rounded-lg bg-umg-gold/10 text-umg-gold flex items-center justify-center font-bold text-lg mb-3">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-umg-navy mb-2">Análisis Patrimonial y Ratios</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                       El análisis patrimonial examina la estructura financiera de la empresa (la relación entre lo que posee, lo que debe y el capital aportado por los dueños). Para interpretarlo se utilizan los ratios financieros:
+<br><br>
+Ratios de liquidez: Miden la capacidad de la empresa para pagar sus deudas a corto plazo (como la razón corriente y la prueba ácida).
+<br><br>
+Ratios de endeudamiento: Evalúan el peso de la deuda ajena frente a los recursos propios, determinando el nivel de riesgo financiero.
+<br><br>
+Ratios de solvencia: Analizan la estabilidad a largo plazo y la capacidad de la organización para perdurar en el tiempo.</p>
+                </div>
+
+                <!-- Herramienta 5 -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-t-4 border-umg-navy md:col-span-2 lg:col-span-2">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy/10 text-umg-navy flex items-center justify-center font-bold text-lg mb-3">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-umg-navy mb-2">Métodos de Proyección Financiera (VAN y TIR)</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed">
+                       Cuando una empresa evalúa un nuevo proyecto, inversión o expansión a largo plazo, utiliza dos de las métricas más potentes de evaluación financiera:<br><br>VAN (Valor Actual Neto): Consiste en proyectar los flujos de caja futuros que generará el proyecto y traerlos a valor presente aplicando una tasa de descuento. Si el VAN es mayor a cero ($> 0$), el proyecto genera más valor que el costo de capital y se debe aceptar.<br><br>TIR (Tasa Interna de Retorno): Es la tasa de descuento que hace que el VAN sea exactamente igual a cero. Representa el porcentaje de rentabilidad anual que promete el proyecto. Si la TIR es mayor a la tasa mínima requerida por la empresa, la inversión es atractiva y viable.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SIMULADORES Y CALCULADORAS PRÁCTICAS -->
+        <section id="simuladores" class="scroll-mt-28 space-y-12">
+            <div class="border-l-4 border-umg-gold pl-4">
+                <span class="text-sm font-bold text-umg-gold uppercase tracking-wider">Módulo III</span>
+                <h2 class="text-3xl font-extrabold text-umg-navy font-heading">Simuladores Financieros Interactivos</h2>
+                <p class="text-slate-600 mt-1">Calculadoras cuantitativas en tiempo real para apoyar la toma de decisiones gerenciales.</p>
+            </div>
+
+            <!-- SIMULADOR 1: PUNTO DE EQUILIBRIO -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 lg:p-8 space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy text-white flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-umg-navy">Simulador de Punto de Equilibrio y Margen</h3>
+                        <p class="text-xs text-slate-500">Determina el volumen mínimo de ventas requerido para no generar pérdidas.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Inputs -->
+                    <div class="lg:col-span-5 space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Costos Fijos Totales (Q)</label>
+                            <input type="number" id="pe-cf" value="15000" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-umg-navy focus:outline-none text-slate-800 font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Precio de Venta Unitario (Q)</label>
+                            <input type="number" id="pe-pv" value="150" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-umg-navy focus:outline-none text-slate-800 font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Costo Variable Unitario (Q)</label>
+                            <input type="number" id="pe-cv" value="90" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-umg-navy focus:outline-none text-slate-800 font-semibold">
+                        </div>
+                        <button onclick="calcularPuntoEquilibrio()" class="w-full bg-umg-navy hover:bg-umg-royal text-white font-bold py-3 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calculator"></i> Calcular Punto de Equilibrio
+                        </button>
+                    </div>
+
+                    <!-- Output & Chart -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 text-center">
+                                <span class="text-xs text-slate-500 block font-medium">Unidades a Vender</span>
+                                <span id="pe-res-unidades" class="text-2xl font-extrabold text-umg-navy">250</span>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-xl border border-amber-100 text-center">
+                                <span class="text-xs text-slate-500 block font-medium">Ingresos Totales (Q)</span>
+                                <span id="pe-res-ingresos" class="text-2xl font-extrabold text-umg-gold">Q 37,500</span>
+                            </div>
+                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 text-center col-span-2 sm:col-span-1">
+                                <span class="text-xs text-slate-500 block font-medium">Margen Contribución</span>
+                                <span id="pe-res-margen" class="text-2xl font-extrabold text-emerald-700">Q 60.00</span>
+                            </div>
+                        </div>
+                        <div class="h-64 relative bg-slate-50 p-2 rounded-xl border border-slate-200">
+                            <canvas id="peChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULADOR 2: FLUJO DE EFECTIVO -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 lg:p-8 space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy text-white flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-umg-navy">Dashboard de Flujo de Efectivo</h3>
+                        <p class="text-xs text-slate-500">Desglose de actividades de Operación, Inversión y Financiamiento.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Inputs -->
+                    <div class="lg:col-span-6 space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 text-sm border-b pb-2">Entradas por Actividades (Q)</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Operación</label>
+                                <input type="number" id="fe-op" value="45000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Inversión</label>
+                                <input type="number" id="fe-inv" value="-12000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Financiación</label>
+                                <input type="number" id="fe-fin" value="8000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Saldo Inicial de Caja (Q)</label>
+                            <input type="number" id="fe-inicial" value="10000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                        </div>
+                        <button onclick="calcularFlujoEfectivo()" class="w-full bg-umg-navy hover:bg-umg-royal text-white font-bold py-2.5 rounded-lg text-sm shadow transition-colors">
+                            Actualizar Flujo de Efectivo
+                        </button>
+                    </div>
+
+                    <!-- Output Dashboard -->
+                    <div class="lg:col-span-6 space-y-4 flex flex-col justify-between">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-500 uppercase font-bold block">Flujo Neto del Periodo</span>
+                                <span id="fe-res-neto" class="text-xl font-extrabold text-slate-800">Q 41,000</span>
+                            </div>
+                            <div class="bg-umg-navy text-white p-4 rounded-xl shadow-md">
+                                <span class="text-xs text-umg-gold uppercase font-bold block">Saldo Final de Caja</span>
+                                <span id="fe-res-final" class="text-xl font-extrabold">Q 51,000</span>
+                            </div>
+                        </div>
+                        <div class="h-48 relative bg-slate-50 p-2 rounded-xl border border-slate-200">
+                            <canvas id="feChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULADOR 3: COMPRAR VS PRODUCIR -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 lg:p-8 space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy text-white flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-umg-navy">Análisis Marginal: Comprar vs. Producir</h3>
+                        <p class="text-xs text-slate-500">Evaluación del costo relevante para decidir la fabricación interna o subcontratación externa.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Inputs -->
+                    <div class="space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 text-sm border-b pb-2">Parámetros del Producto / Componente</h4>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Unidades Requeridas</label>
+                            <input type="number" id="cp-unidades" value="5000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Costo Var. Fabricación (Q/U)</label>
+                                <input type="number" id="cp-cv" value="25" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Costos Fijos Fijables (Q)</label>
+                                <input type="number" id="cp-cf" value="20000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Precio de Compra Externo (Q/U)</label>
+                            <input type="number" id="cp-precio-compra" value="32" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                        </div>
+                        <button onclick="calcularComprarProducir()" class="w-full bg-umg-navy hover:bg-umg-royal text-white font-bold py-2.5 rounded-lg text-sm shadow transition-colors">
+                            Evaluar Decisión
+                        </button>
+                    </div>
+
+                    <!-- Output Decision -->
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div id="cp-resultado-card" class="p-6 rounded-2xl border-2 border-emerald-500 bg-emerald-50 space-y-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Recomendación Gerencial</span>
+                            <div id="cp-decision" class="text-2xl font-extrabold text-emerald-900">PRODUCIR INTERNAMENTE</div>
+                            <p id="cp-detalle" class="text-xs text-emerald-800 leading-relaxed">
+                                Producir internamente genera un ahorro de Q 15,000 en comparación con la opción de compra externa.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-500 block font-semibold">Costo Total Producir</span>
+                                <span id="cp-res-producir" class="text-lg font-bold text-slate-800">Q 145,000</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-500 block font-semibold">Costo Total Comprar</span>
+                                <span id="cp-res-comprar" class="text-lg font-bold text-slate-800">Q 160,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULADOR 4: ANÁLISIS PATRIMONIAL Y RATIOS -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 lg:p-8 space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy text-white flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-umg-navy">Análisis Patrimonial y Ratios Financieros</h3>
+                        <p class="text-xs text-slate-500">Evaluación de Liquidez, Solvencia y Nivel de Endeudamiento.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Inputs -->
+                    <div class="lg:col-span-5 space-y-3 bg-slate-50 p-6 rounded-xl border border-slate-200 text-xs">
+                        <h4 class="font-bold text-slate-800 border-b pb-2 text-sm">Datos Balance General (Q)</h4>
+                        <div>
+                            <label class="block font-semibold text-slate-600 mb-1">Activo Corriente</label>
+                            <input type="number" id="rat-ac" value="80000" class="w-full p-2 border rounded-lg font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 mb-1">Inventarios</label>
+                            <input type="number" id="rat-inv" value="30000" class="w-full p-2 border rounded-lg font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 mb-1">Pasivo Corriente</label>
+                            <input type="number" id="rat-pc" value="40000" class="w-full p-2 border rounded-lg font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 mb-1">Pasivo Total</label>
+                            <input type="number" id="rat-pt" value="90000" class="w-full p-2 border rounded-lg font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 mb-1">Activo Total</label>
+                            <input type="number" id="rat-at" value="200000" class="w-full p-2 border rounded-lg font-semibold">
+                        </div>
+                        <button onclick="calcularRatios()" class="w-full bg-umg-navy hover:bg-umg-royal text-white font-bold py-2 rounded-lg shadow text-xs uppercase tracking-wider transition-colors mt-2">
+                            Calcular Ratios
+                        </button>
+                    </div>
+
+                    <!-- Outputs Ratios -->
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                        <!-- Ratio 1 -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Liquidez Corriente</span>
+                            <div id="rat-res-liquidez" class="text-3xl font-extrabold text-umg-navy">2.00</div>
+                            <span id="rat-badge-liquidez" class="inline-block px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-semibold">Saludable (&gt;1.5)</span>
+                        </div>
+                        <!-- Ratio 2 -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Prueba Ácida</span>
+                            <div id="rat-res-cida" class="text-3xl font-extrabold text-umg-navy">1.25</div>
+                            <span id="rat-badge-cida" class="inline-block px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 font-semibold">Aceptable (&gt;1.0)</span>
+                        </div>
+                        <!-- Ratio 3 -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 text-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Endeudamiento Total</span>
+                            <div id="rat-res-endeudamiento" class="text-3xl font-extrabold text-umg-navy">45.0%</div>
+                            <span id="rat-badge-end" class="inline-block px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800 font-semibold">Moderado (&lt;50%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULADOR 5: PROYECCIONES FINANCIERAS (VAN Y TIR) -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 lg:p-8 space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                    <div class="w-10 h-10 rounded-lg bg-umg-navy text-white flex items-center justify-center font-bold">5</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-umg-navy">Evaluación de Proyectos: VAN y TIR</h3>
+                        <p class="text-xs text-slate-500">Valor Actual Neto y Tasa Interna de Retorno con flujos dinámicos.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Inputs -->
+                    <div class="lg:col-span-5 space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Inversión Inicial (Q)</label>
+                                <input type="number" id="van-inversion" value="100000" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Tasa Descuento (%)</label>
+                                <input type="number" id="van-tasa" value="12" class="w-full p-2 border rounded-lg text-sm font-semibold">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Flujos de Efectivo Anuales (Q)</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" id="van-f1" value="30000" placeholder="Año 1" class="p-2 border rounded text-xs font-semibold">
+                                <input type="number" id="van-f2" value="35000" placeholder="Año 2" class="p-2 border rounded text-xs font-semibold">
+                                <input type="number" id="van-f3" value="40000" placeholder="Año 3" class="p-2 border rounded text-xs font-semibold">
+                                <input type="number" id="van-f4" value="45000" placeholder="Año 4" class="p-2 border rounded text-xs font-semibold">
+                            </div>
+                        </div>
+
+                        <button onclick="calcularVANTIR()" class="w-full bg-umg-navy hover:bg-umg-royal text-white font-bold py-2.5 rounded-lg text-sm shadow transition-colors">
+                            Evaluar Viabilidad Proyecto
+                        </button>
+                    </div>
+
+                    <!-- Output VAN TIR -->
+                    <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 text-center">
+                                <span class="text-xs text-slate-500 block font-bold uppercase">Valor Actual Neto (VAN)</span>
+                                <span id="van-res-van" class="text-2xl font-extrabold text-umg-navy">Q 12,450.20</span>
+                            </div>
+                            <div class="bg-amber-50 p-5 rounded-2xl border border-amber-100 text-center">
+                                <span class="text-xs text-slate-500 block font-bold uppercase">Tasa Interna Retorno (TIR)</span>
+                                <span id="van-res-tir" class="text-2xl font-extrabold text-umg-gold">17.2%</span>
+                            </div>
+                        </div>
+
+                        <div id="van-status-box" class="p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs leading-relaxed space-y-1">
+                            <div class="font-bold text-sm text-emerald-950"><i class="fa-solid fa-circle-check"></i> Proyecto Financieramente Viable</div>
+                            <p>El VAN es mayor a cero y la TIR supera la tasa de descuento exigida (12%), por lo que el proyecto genera valor económico.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECTION 4: GALERÍA DE ACTIVIDADES (REUBICADA AL FINAL) -->
+        <section id="galeria" class="scroll-mt-28 space-y-8 bg-slate-100 p-6 lg:p-10 rounded-3xl border border-slate-200">
+            <div class="border-l-4 border-umg-gold pl-4">
+                <span class="text-sm font-bold text-umg-gold uppercase tracking-wider">Módulo IV (Extra)</span>
+                <h2 class="text-3xl font-extrabold text-umg-navy font-heading">Galería de Actividades Académicas y Aniversario UMG</h2>
+                <p class="text-slate-600 mt-1">Registro fotográfico de nuestra participación en conferencias, talleres y eventos institucionales.</p>
+            </div>
+
+            <!-- Cuadrícula de 8 Imágenes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Tarjeta 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/ZG4fNNu" alt="Conferencia Inaugural" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Conferencia Inaugural</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Participación activa en el ciclo de conferencias sobre tendencias de gestión contable.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Aniversario UMG</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/050ZEiz" alt="Taller Práctico" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Taller de Costos</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Aplicación práctica de sistemas de costeo y toma de decisiones bajo presión.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Académico</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/a/participaci-n-de-actividades-j37p50J#PGwRfvs" alt="Recorrido Inicial" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Entrada al Parque</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Actividades recreativas al finalizar el evento.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Conferencia</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/a/participaci-n-de-actividades-j37p50J#3l6wnoC" alt="Recorrido recreativo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Convivencia Grupal</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Actividades extraescolares para fomentar el espíritu de equipo.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Conferencia</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 5 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/a/participaci-n-de-actividades-j37p50J#EvoMe8n" alt="Carrera 7k" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Carrera 7k</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Actividad deportiva organizada para celebrar el aniversario de la universidad.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Deportivo</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 6 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/a/participaci-n-de-actividades-j37p50J#MFHY6MT" alt="Gala de Aniversario" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Gala de Aniversario</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Celebración central conmemorativa del aniversario de nuestra casa de estudios.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Aniversario UMG</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 7 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/a/participaci-n-de-actividades-j37p50J#zyeDJ5Q" alt="Presentación de Marimba" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Grupo de Marimba</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Presentación musical de la banda de marimba universitaria.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Cultural</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 8 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                    <div class="h-48 bg-slate-200 overflow-hidden">
+                        <img src="https://imgur.com/a/participaci-n-de-actividades-j37p50J#zLNOVj6" alt="Cierre y Reconocimientos" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <h3 class="font-bold text-base text-umg-navy">Clausura y Premiación</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed">Entrega de reconocimientos por la destacada participación en diferentes categorías narrativas.</p>
+                        <span class="text-[10px] font-semibold text-umg-gold bg-umg-gold/10 px-2 py-1 rounded w-max">Clausura</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-umg-navy text-white border-t-4 border-umg-gold mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+                <div>
+                    <h4 class="text-lg font-bold font-heading text-umg-gold mb-3">Universidad Mariano Gálvez</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Facultad de Ingeniería<br>
+                        Curso: Contabilidad II<br>
+                        San Pedro, San Marcos, Guatemala, 2026
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold font-heading text-umg-gold mb-3">Créditos Académicos</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Desarrollado como recurso digital interactivo de evaluación académica.<br>
+                        Conocer la verdad y la verdad os hará libres.<br>
+                        Creado por: Francisco Javier González Velásquez<br>
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold font-heading text-umg-gold mb-3">Estándares Web</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Plataforma Single-Page (SPA) autocontenida con HTML5, Tailwind CSS y Vanilla JavaScript.
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-slate-700 pt-6 text-center text-xs text-slate-400">
+                &copy; 2026 Universidad Mariano Gálvez de Guatemala. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Calculations Logic -->
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Charts Global Variables
+        let peChartInstance = null;
+        let feChartInstance = null;
+
+        // Formatter Helper
+        const formatQ = (num) => 'Q ' + Number(num).toLocaleString('es-GT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // 1. Punto de Equilibrio Calculator
+        function calcularPuntoEquilibrio() {
+            const cf = parseFloat(document.getElementById('pe-cf').value) || 0;
+            const pv = parseFloat(document.getElementById('pe-pv').value) || 0;
+            const cv = parseFloat(document.getElementById('pe-cv').value) || 0;
+
+            const margenContribucion = pv - cv;
+            let unidadesPE = 0;
+            let ingresosPE = 0;
+
+            if (margenContribucion > 0) {
+                unidadesPE = Math.ceil(cf / margenContribucion);
+                ingresosPE = unidadesPE * pv;
+            }
+
+            document.getElementById('pe-res-unidades').innerText = unidadesPE.toLocaleString('es-GT');
+            document.getElementById('pe-res-ingresos').innerText = formatQ(ingresosPE);
+            document.getElementById('pe-res-margen').innerText = formatQ(margenContribucion);
+
+            // Chart Update
+            const ctx = document.getElementById('peChart').getContext('2d');
+            const labels = [0, unidadesPE, unidadesPE * 2];
+            const costosTotales = labels.map(u => cf + (cv * u));
+            const ventasTotales = labels.map(u => pv * u);
+
+            if (peChartInstance) peChartInstance.destroy();
+
+            peChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels.map(l => l + ' Unid.'),
+                    datasets: [
+                        { label: 'Ventas Totales', data: ventasTotales, borderColor: '#C59B27', backgroundColor: 'rgba(197, 155, 39, 0.1)', fill: true },
+                        { label: 'Costos Totales', data: costosTotales, borderColor: '#002B49', borderDash: [5, 5] }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
+                }
+            });
+        }
+
+        // 2. Flujo de Efectivo Calculator
+        function calcularFlujoEfectivo() {
+            const op = parseFloat(document.getElementById('fe-op').value) || 0;
+            const inv = parseFloat(document.getElementById('fe-inv').value) || 0;
+            const fin = parseFloat(document.getElementById('fe-fin').value) || 0;
+            const inicial = parseFloat(document.getElementById('fe-inicial').value) || 0;
+
+            const neto = op + inv + fin;
+            const final = inicial + neto;
+
+            document.getElementById('fe-res-neto').innerText = formatQ(neto);
+            document.getElementById('fe-res-final').innerText = formatQ(final);
+
+            const ctx = document.getElementById('feChart').getContext('2d');
+            if (feChartInstance) feChartInstance.destroy();
+
+            feChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Operación', 'Inversión', 'Financiación', 'Neto'],
+                    datasets: [{
+                        data: [op, inv, fin, neto],
+                        backgroundColor: [
+                            op >= 0 ? '#10B981' : '#EF4444',
+                            inv >= 0 ? '#10B981' : '#EF4444',
+                            fin >= 0 ? '#10B981' : '#EF4444',
+                            '#002B49'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // 3. Comprar vs Producir Calculator
+        function calcularComprarProducir() {
+            const u = parseFloat(document.getElementById('cp-unidades').value) || 0;
+            const cv = parseFloat(document.getElementById('cp-cv').value) || 0;
+            const cf = parseFloat(document.getElementById('cp-cf').value) || 0;
+            const pc = parseFloat(document.getElementById('cp-precio-compra').value) || 0;
+
+            const costoProducir = (u * cv) + cf;
+            const costoComprar = u * pc;
+
+            document.getElementById('cp-res-producir').innerText = formatQ(costoProducir);
+            document.getElementById('cp-res-comprar').innerText = formatQ(costoComprar);
+
+            const card = document.getElementById('cp-resultado-card');
+            const decision = document.getElementById('cp-decision');
+            const detalle = document.getElementById('cp-detalle');
+
+            const dif = Math.abs(costoProducir - costoComprar);
+
+            if (costoProducir < costoComprar) {
+                card.className = "p-6 rounded-2xl border-2 border-emerald-500 bg-emerald-50 space-y-2";
+                decision.className = "text-2xl font-extrabold text-emerald-900";
+                decision.innerText = "PRODUCIR INTERNAMENTE";
+                detalle.innerText = `Producir genera un ahorro marginal de ${formatQ(dif)} frente a la compra externa.`;
+            } else {
+                card.className = "p-6 rounded-2xl border-2 border-amber-500 bg-amber-50 space-y-2";
+                decision.className = "text-2xl font-extrabold text-amber-900";
+                decision.innerText = "COMPRAR A PROVEEDOR";
+                detalle.innerText = `Subcontratar / comprar ahorra ${formatQ(dif)} al evitar costos fijos y variables.`;
+            }
+        }
+
+        // 4. Ratios Financieros Calculator
+        function calcularRatios() {
+            const ac = parseFloat(document.getElementById('rat-ac').value) || 0;
+            const inv = parseFloat(document.getElementById('rat-inv').value) || 0;
+            const pc = parseFloat(document.getElementById('rat-pc').value) || 0;
+            const pt = parseFloat(document.getElementById('rat-pt').value) || 0;
+            const at = parseFloat(document.getElementById('rat-at').value) || 0;
+
+            const liquidez = pc > 0 ? (ac / pc) : 0;
+            const acida = pc > 0 ? ((ac - inv) / pc) : 0;
+            const endeudamiento = at > 0 ? ((pt / at) * 100) : 0;
+
+            document.getElementById('rat-res-liquidez').innerText = liquidez.toFixed(2);
+            document.getElementById('rat-res-cida').innerText = acida.toFixed(2);
+            document.getElementById('rat-res-endeudamiento').innerText = endeudamiento.toFixed(1) + '%';
+        }
+
+        // 5. VAN y TIR Calculator
+        function calcularVANTIR() {
+            const io = parseFloat(document.getElementById('van-inversion').value) || 0;
+            const k = (parseFloat(document.getElementById('van-tasa').value) || 0) / 100;
+            const f1 = parseFloat(document.getElementById('van-f1').value) || 0;
+            const f2 = parseFloat(document.getElementById('van-f2').value) || 0;
+            const f3 = parseFloat(document.getElementById('van-f3').value) || 0;
+            const f4 = parseFloat(document.getElementById('van-f4').value) || 0;
+
+            const flujos = [f1, f2, f3, f4];
+
+            // VAN Calculation
+            let van = -io;
+            for (let i = 0; i < flujos.length; i++) {
+                van += flujos[i] / Math.pow(1 + k, i + 1);
+            }
+
+            // Simple TIR Estimation (Iterative)
+            let tir = 0;
+            let minDiff = Infinity;
+            for (let rate = 0; rate <= 1; rate += 0.001) {
+                let tempVan = -io;
+                for (let i = 0; i < flujos.length; i++) {
+                    tempVan += flujos[i] / Math.pow(1 + rate, i + 1);
+                }
+                if (Math.abs(tempVan) < minDiff) {
+                    minDiff = Math.abs(tempVan);
+                    tir = rate;
+                }
+            }
+
+            document.getElementById('van-res-van').innerText = formatQ(van);
+            document.getElementById('van-res-tir').innerText = (tir * 100).toFixed(1) + '%';
+
+            const statusBox = document.getElementById('van-status-box');
+            if (van >= 0) {
+                statusBox.className = "p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs leading-relaxed space-y-1";
+                statusBox.innerHTML = `<div class="font-bold text-sm text-emerald-950"><i class="fa-solid fa-circle-check"></i> Proyecto Financieramente Viable</div>
+                <p>El VAN es positivo (${formatQ(van)}) y la TIR (${(tir * 100).toFixed(1)}%) supera la tasa de descuento exigida (${(k * 100).toFixed(1)}%).</p>`;
+            } else {
+                statusBox.className = "p-5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs leading-relaxed space-y-1";
+                statusBox.innerHTML = `<div class="font-bold text-sm text-rose-950"><i class="fa-solid fa-circle-xmark"></i> Proyecto No Viable</div>
+                <p>El VAN es negativo (${formatQ(van)}). El proyecto destruye valor bajo las condiciones actuales.</p>`;
+            }
+        }
+
+        // Initialize All Calculations on Load
+        window.onload = function() {
+            calcularPuntoEquilibrio();
+            calcularFlujoEfectivo();
+            calcularComprarProducir();
+            calcularRatios();
+            calcularVANTIR();
+        };
+    </script>
+</body>
+</html>
